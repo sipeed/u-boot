@@ -54,6 +54,12 @@ config DRAM_SUN50I_H616
 	  Select this dram controller driver for some sun50i platforms,
 	  like H616.
 
+config DRAM_SUN50I_R329
+	bool
+	help
+	  Select this dram controller driver for some sun50i platforms,
+	  like R329.
+
 if DRAM_SUN50I_H616
 config DRAM_SUN50I_H616_WRITE_LEVELING
 	bool "H616 DRAM write leveling"
@@ -402,7 +408,7 @@ config ARM_BOOT_HOOK_RMR
 	This allows both the SPL and the U-Boot proper to be entered in
 	either mode and switch to AArch64 if needed.
 
-if SUNXI_DRAM_DW || DRAM_SUN50I_H6
+if SUNXI_DRAM_DW || DRAM_SUN50I_H6 || DRAM_SUN50I_R329
 config SUNXI_DRAM_DDR3
 	bool
 
@@ -423,6 +429,14 @@ config SUNXI_DRAM_DDR3_1333
 	---help---
 	This option is the original only supported memory type, which suits
 	many H3/H5/A64 boards available now.
+
+config SUNXI_DRAM_DDR3_R329
+	bool "DDR3 found in R329 chip"
+	select SUNXI_DRAM_DDR3
+	depends on DRAM_SUN50I_R329
+	---help---
+	This option is only for the DDR3 memory chip which is co-packaged in
+	Allwinner R329 SoC.
 
 config SUNXI_DRAM_LPDDR3_STOCK
 	bool "LPDDR3 with Allwinner stock configuration"
