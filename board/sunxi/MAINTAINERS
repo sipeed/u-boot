@@ -493,6 +493,11 @@ M:	VishnuPatekar <vishnupatekar0510@gmail.com>
 S:	Maintained
 F:	configs/Sinovoip_BPI_M3_defconfig
 
+SIPEED MAIXSENSE BOARD
+M:	Icenowy Zheng <icenowy@sipeed.com>
+S:	Maintained
+F:	configs/sipeed_maixsense_defconfig
+
 SOPINE BOARD
 M:	Icenowy Zheng <icenowy@aosc.io>
 S:	Maintained
