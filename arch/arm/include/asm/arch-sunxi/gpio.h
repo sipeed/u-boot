@@ -166,12 +166,14 @@ enum sunxi_gpio_number {
 #define SUN8I_A83T_GPB_UART0	2
 #define SUN8I_V3S_GPB_UART0	3
 #define SUN50I_GPB_UART0	4
+#define SUN50I_R329_GPB_UART0	2
 
 #define SUNXI_GPC_NAND		2
 #define SUNXI_GPC_SPI0		3
 #define SUNXI_GPC_SDC2		3
 #define SUN6I_GPC_SDC3		4
 #define SUN50I_GPC_SPI0		4
+#define SUN50I_R329_GPC_SDC0	3
 
 #define SUN8I_GPD_SDC1		3
 #define SUNXI_GPD_LCD0		2
@@ -185,6 +187,7 @@ enum sunxi_gpio_number {
 #define SUNXI_GPF_SDC0		2
 #define SUNXI_GPF_UART0		4
 #define SUN8I_GPF_UART0		3
+#define SUN50I_R329_GPF_SDC0	5
 
 #define SUN4I_GPG_SDC1		4
 #define SUN5I_GPG_SDC1		2

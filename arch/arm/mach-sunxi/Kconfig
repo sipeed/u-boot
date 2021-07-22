@@ -672,6 +672,13 @@ config MMC3_CD_PIN
 	---help---
 	See MMC0_CD_PIN help text.
 
+config MMC0_PINS
+	string "Pins for mmc0"
+	default "PF"
+	depends on MACH_SUN50I_R329
+	---help---
+	See MMC1_PINS help text.
+
 config MMC1_PINS
 	string "Pins for mmc1"
 	default ""

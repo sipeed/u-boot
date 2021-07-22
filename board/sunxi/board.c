@@ -417,12 +417,32 @@ static void mmc_pinmux_setup(int sdc)
 
 	switch (sdc) {
 	case 0:
+#if defined(CONFIG_MACH_SUN50I_R329)
+		pins = sunxi_name_to_gpio_bank(CONFIG_MMC0_PINS);
+
+		if (pins == SUNXI_GPIO_C) {
+			/* SDC0: PC0-PC6 */
+			for (pin = SUNXI_GPC(0); pin <= SUNXI_GPC(6); pin++) {
+				sunxi_gpio_set_cfgpin(pin, SUN50I_R329_GPC_SDC0);
+				sunxi_gpio_set_pull(pin, SUNXI_GPIO_PULL_UP);
+				sunxi_gpio_set_drv(pin, 2);
+			}
+		} else {
+			/* SDC0: PF0-PF5 */
+			for (pin = SUNXI_GPF(0); pin <= SUNXI_GPF(5); pin++) {
+				sunxi_gpio_set_cfgpin(pin, SUN50I_R329_GPF_SDC0);
+				sunxi_gpio_set_pull(pin, SUNXI_GPIO_PULL_UP);
+				sunxi_gpio_set_drv(pin, 2);
+			}
+		}
+#else
 		/* SDC0: PF0-PF5 */
 		for (pin = SUNXI_GPF(0); pin <= SUNXI_GPF(5); pin++) {
 			sunxi_gpio_set_cfgpin(pin, SUNXI_GPF_SDC0);
 			sunxi_gpio_set_pull(pin, SUNXI_GPIO_PULL_UP);
 			sunxi_gpio_set_drv(pin, 2);
 		}
+#endif
 		break;
 
 	case 1:
