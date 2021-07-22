@@ -181,6 +181,9 @@
 /* end of SRAM A2 on H6 for now */
 #define LOW_LEVEL_SRAM_STACK		0x00118000
 #endif
+#elif CONFIG_SUNXI_SRAM_ADDRESS == 0x100000
+#define CONFIG_SPL_MAX_SIZE		0x7fa0		/* 32 KiB */
+#define LOW_LEVEL_SRAM_STACK		0x00110000	/* 64 KiB inside SRAM A2 */
 #else
 #define CONFIG_SPL_MAX_SIZE		0x5fa0		/* 24KB on sun4i/sun7i */
 #define LOW_LEVEL_SRAM_STACK		0x00008000	/* End of sram */
