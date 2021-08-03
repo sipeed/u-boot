@@ -137,12 +137,15 @@
 #define CONFIG_SYS_MMC_MAX_DEVICE	4
 #endif
 
-#ifndef CONFIG_MACH_SUN8I_V3S
-/* 64MB of malloc() pool */
-#define CONFIG_SYS_MALLOC_LEN		(CONFIG_ENV_SIZE + (64 << 20))
-#else
+#if defined(CONFIG_MACH_SUN8I_V3S)
 /* 2MB of malloc() pool */
 #define CONFIG_SYS_MALLOC_LEN		(CONFIG_ENV_SIZE + (2 << 20))
+#elif defined(CONFIG_MACH_SUN50I_R329)
+/* 4MB of malloc() pool */
+#define CONFIG_SYS_MALLOC_LEN		(CONFIG_ENV_SIZE + (4 << 20))
+#else
+/* 64MB of malloc() pool */
+#define CONFIG_SYS_MALLOC_LEN		(CONFIG_ENV_SIZE + (64 << 20))
 #endif
 
 /*
@@ -236,6 +239,24 @@ extern int soft_i2c_gpio_scl;
 #ifndef CONFIG_SPL_BUILD
 
 #ifdef CONFIG_ARM64
+#if defined(CONFIG_MACH_SUN50I_R329)
+/*
+ * R329 has at least 128MB of DRAM.
+ * 108M RAM (128M minimum minus 4MB heap + 16MB for u-boot, stack, fb, etc.
+ * 32M uncompressed kernel, 16M compressed kernel, 1M fdt,
+ * 1M script, 1M pxe, 1M dt overlay and the ramdisk at the end.
+ * the end.
+ */
+#define BOOTM_SIZE        __stringify(6c00000)
+#define KERNEL_ADDR_R     __stringify(SDRAM_OFFSET(0080000))
+#define KERNEL_COMP_ADDR_R __stringify(SDRAM_OFFSET(2000000))
+#define KERNEL_COMP_SIZE  __stringify(0x1000000)
+#define FDT_ADDR_R        __stringify(SDRAM_OFFSET(3000000))
+#define SCRIPT_ADDR_R     __stringify(SDRAM_OFFSET(3100000))
+#define PXEFILE_ADDR_R    __stringify(SDRAM_OFFSET(3200000))
+#define FDTOVERLAY_ADDR_R __stringify(SDRAM_OFFSET(3300000))
+#define RAMDISK_ADDR_R    __stringify(SDRAM_OFFSET(3400000))
+#else
 /*
  * Boards seem to come with at least 512MB of DRAM.
  * The kernel should go at 512K, which is the default text offset (that will
@@ -253,6 +274,7 @@ extern int soft_i2c_gpio_scl;
 #define PXEFILE_ADDR_R    __stringify(SDRAM_OFFSET(FD00000))
 #define FDTOVERLAY_ADDR_R __stringify(SDRAM_OFFSET(FE00000))
 #define RAMDISK_ADDR_R    __stringify(SDRAM_OFFSET(FF00000))
+#endif
 
 #else
 /*
